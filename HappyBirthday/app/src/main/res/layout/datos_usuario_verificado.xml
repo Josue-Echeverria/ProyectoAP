@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:padding="16dp">
+
+    <!-- Header with Back Arrow and Title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F4A8D8"
+        android:padding="16dp">
+
+        <!-- Back Arrow -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="44dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:contentDescription="Back"
+            android:src="@drawable/flecha_regreso" />
+
+        <!-- Title and Subtitle -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos de usuario"
+                android:layout_marginStart="40dp"
+                android:textSize="25sp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuenta verificada"
+                android:textSize="14sp"
+                android:layout_marginStart="40dp"
+                android:textColor="#7E7E7E"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Form -->
+
+    <!-- Change Password Link -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="524dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="#f5f5f5"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Nombre Completo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Nombre Completo:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/full_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="Jane Doe"
+            android:textSize="20sp" />
+
+        <!-- Número de Cédula -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Número de Cédula:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/id_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="222222222"
+            android:textSize="20sp" />
+
+        <!-- Correo Electrónico -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Correo Electrónico:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="Jane@estudiantec.cr"
+            android:textSize="20sp" />
+
+        <!-- Área de Trabajo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Área de Trabajo:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/job_area"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="Estudiante"
+            android:textSize="20sp" />
+
+        <!-- Cantidad Inicial en Cartera -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Cantidad Inicial de Dinero en Cartera Digital:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/digital_wallet_amount"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="$40"
+            android:textSize="20sp" />
+
+        <!-- Número de Teléfono -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Número de Teléfono:"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/edit_text"
+            android:enabled="false"
+            android:focusable="false"
+            android:text="+506 28288998"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="7dp"
+        android:weightSum="2">
+        <!-- Donation Button -->
+        <Button
+            android:id="@+id/my_donations"
+            android:layout_width="140dp"
+            android:layout_height="55dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="7dp"
+            android:background="#8BC34A"
+            android:text="Mis donaciones"
+            android:textColor="#000000"
+            app:backgroundTint="#8BC34A" />
+
+        <!-- Cambiar Contraseña Button -->
+        <Button
+            android:id="@+id/change_password"
+            android:layout_width="140dp"
+            android:layout_height="55dp"
+            android:layout_gravity="right"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="7dp"
+            android:background="#8BC34A"
+            android:text="Cambiar contraseña"
+            android:textColor="#000000"
+            app:backgroundTint="#8BC34A" />
+    </LinearLayout>
+
+</LinearLayout>
