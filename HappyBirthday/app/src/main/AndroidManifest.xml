@@ -21,8 +21,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.happybirthday.SecondActivity"
-            android:exported="true"> </activity>
     </application>
 
 </manifest>
