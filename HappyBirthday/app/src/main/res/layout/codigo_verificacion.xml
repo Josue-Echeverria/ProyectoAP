@@ -49,6 +49,8 @@
         android:layout_gravity="center">
 
         <!-- Código de Verificación -->
+
+        <!-- Numeric Keypad -->
         <EditText
             android:id="@+id/verification_code"
             android:layout_width="match_parent"
@@ -59,11 +61,9 @@
             android:hint="Código de verificación"
             android:inputType="number"
             android:maxLength="6"
-            android:text="22222"
             android:textAlignment="center"
             android:textSize="18sp" />
 
-        <!-- Numeric Keypad -->
         <GridLayout
             android:id="@+id/numeric_keypad"
             android:layout_width="wrap_content"
