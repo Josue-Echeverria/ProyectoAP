@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F4A8D8"
+        android:padding="16dp">
+
+        <!-- Back Arrow -->
+
+        <!-- Title -->
+        <!-- Back Arrow -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="44dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:contentDescription="Back"
+            android:src="@drawable/flecha_regreso" />
+
+        <ImageView
+            android:id="@+id/perfil"
+            android:layout_width="44dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="225dp"
+            android:contentDescription="Back"
+            android:src="@drawable/perfil" />
+    </LinearLayout>
+
+    <!-- Content Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f5f5f5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/project_image"
+            android:layout_width="100dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/animalrescue" />
+        <!-- Project Title -->
+        <TextView
+            android:id="@+id/project_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Animal Rescue"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Project Description -->
+        <TextView
+            android:id="@+id/project_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:gravity="center"
+            android:text="Este proyecto busca rescatar, rehabilitar y promover la adopción de perros que se encuentran en situación de abandono y vulnerabilidad."
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Objective Section -->
+        <TextView
+            android:id="@+id/project_objective_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Objetivo de financiación:"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/project_objective_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:gravity="center"
+            android:text="El dinero donado a la causa servirá para la alimentación, gastos médicos, transportes y gastos operativos."
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Raised Amount -->
+        <TextView
+            android:id="@+id/raised_amount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Monto recaudado:"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/raised_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:gravity="center"
+            android:text="$10 075"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Deadline -->
+        <TextView
+            android:id="@+id/deadline_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Fecha límite de recaudación:"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/deadline_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:gravity="center"
+            android:text="25/12/2024"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Donate Button -->
+        <Button
+            android:id="@+id/donate_button"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#8BC34A"
+            android:padding="12dp"
+            android:text="DONAR"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:backgroundTint="#8BC34A" />
+    </LinearLayout>
+
+</LinearLayout>
