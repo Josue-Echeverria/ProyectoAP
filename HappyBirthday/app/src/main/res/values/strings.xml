@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" parent="Theme.AppCompat.Light.NoActionBar"></string>
-    <string name="app_name">Happy Birthday</string>
     <string name="login">Login</string>
     <string name="email">email</string>
     <string name="password">password</string>
