@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:padding="16dp">
+
+
+    <!-- Header with Back Arrow and Title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F4A8D8"
+        android:padding="16dp">
+
+        <!-- Back Arrow -->
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:text="Proyectos"
+            android:textSize="25sp"
+            android:textColor="#000000" />
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="44dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="185dp"
+            android:contentDescription="Back"
+            android:src="@drawable/perfil" />
+
+
+    </LinearLayout>
+    <!-- Project Card -->
+    <EditText
+        android:id="@+id/search_project"
+        android:layout_width="352dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#D3D3D3"
+        android:hint="Buscar proyecto"
+        android:padding="8dp"
+        android:textColor="#000000"
+        android:textColorHint="#757575" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        >
+
+        <!-- Project Image -->
+
+        <!-- Project Info -->
+        <ImageView
+            android:id="@+id/project_image1"
+            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
+            android:src="@drawable/neuromedicinePP" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp">
+
+            <!-- Project Title -->
+            <TextView
+                android:id="@+id/project_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IA neuromedicine"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <!-- Project Description -->
+            <TextView
+                android:id="@+id/project_description1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nos dedicamos a la investigación y desarrollo de tratamientos innovadores para enfermedades neurológicas"
+                android:textSize="14sp"
+                android:textColor="#757575"
+                android:layout_marginTop="4dp" />
+
+            <!-- Project Deadline -->
+            <TextView
+                android:id="@+id/project_deadline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha límite: 25/12/2024"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        >
+
+        <!-- Project Image -->
+
+        <!-- Project Info -->
+        <ImageView
+            android:id="@+id/project_image2"
+            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
+            android:src="@drawable/animalrescue" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp">
+
+            <!-- Project Title -->
+            <TextView
+                android:id="@+id/project_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Animal Rescue"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <!-- Project Description -->
+            <TextView
+                android:id="@+id/project_description2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nuestro equipo del proyecto esta dedicadao al rescate, rehabilitación y adopción de perros abandonados o en situación de vulnerabilidad. "
+                android:textSize="14sp"
+                android:textColor="#757575"
+                android:layout_marginTop="4dp" />
+
+            <!-- Project Deadline -->
+            <TextView
+                android:id="@+id/project_deadline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha límite: 25/12/2024"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"
+        >
+
+        <!-- Project Image -->
+
+        <!-- Project Info -->
+        <ImageView
+            android:id="@+id/project_image3"
+            android:layout_width="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="100dp"
+            android:src="@drawable/petAIcarePP" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Project Title -->
+            <TextView
+                android:id="@+id/project_title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PetAI Care"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Project Description -->
+            <TextView
+                android:id="@+id/project_description3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="La plataforma ofrece un servicio personalizado que monitorea la salud y comportamiento de las mascotas a través de dispositivos inteligentes conectados."
+                android:textColor="#757575"
+                android:textSize="14sp" />
+
+            <!-- Project Deadline -->
+            <TextView
+                android:id="@+id/project_deadline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Fecha límite: 25/12/2024"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- Botón Verificar -->
+    <Button
+        android:id="@+id/btn_proyectos"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="#8BC34A"
+        android:text="Mis Proyectos"
+        android:textColor="#000000"
+        app:backgroundTint="#8BC34A" />
+
+
+
+
+</LinearLayout>
