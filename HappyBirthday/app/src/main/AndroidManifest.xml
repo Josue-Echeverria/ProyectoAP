@@ -22,7 +22,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MisProyectosActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ProyectosVistaUsuarioActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".EditarProyectoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".DetallesActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".PerfilActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".MyDonationsActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".CrearProyectoActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".DonarActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

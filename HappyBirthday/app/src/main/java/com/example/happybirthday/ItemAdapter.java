@@ -19,7 +19,7 @@ public class ItemAdapter<T> extends RecyclerView.Adapter<ItemAdapter.ItemViewHol
     }
 
     // Constructor genérico
-    public ItemAdapter(List<T> itemList, int layoutId, Binder<T> binder) {
+    public ItemAdapter(List<T> itemList, int layoutId) {
         this.itemList = itemList;
         this.layoutId = layoutId;
         this.binder = binder;

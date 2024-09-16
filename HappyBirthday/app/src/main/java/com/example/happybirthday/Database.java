@@ -1,29 +1,48 @@
 package com.example.happybirthday;
 
-import static com.mongodb.client.model.Filters.eq;
-import org.bson.Document;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import android.widget.Button;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Database {
-    private MongoClient mongoClient;
-    private MongoDatabase database;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://611d-201-192-142-225.ngrok-free.app")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    /**
+    public Boolean Login(String nombre, String contrasena) {
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<ResponseBody> login = apiService.login("{username: " + nombre + ", password: " + contrasena + "}");
+        ResponseBody responseBody;
+        login.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    responseBody = response.body();
+                    try {
+                        JsonObject jsonResponse = JsonParser.parseString(responseBody.string()).getAsJsonObject();
+                        findViewById<Button>(R.id.btn_login).setOnClickListener{
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
 
-    public Database(){
-        String connectionString = "mongodb+srv://hdanielqg:rkyde4mRHsWYGzU7@proyecto2.y96zzh2.mongodb.net/?retryWrites=true&w=majority&appName=Proyecto2";
-        ConnectionString connString = new ConnectionString(connectionString);
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(connString)
-                .build();
-        mongoClient = MongoClients.create(settings);
-        database = mongoClient.getDatabase("sample_mflix");
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Manejar el error
+            }
+        });
+*/
     }
-
-    public void insertDocument(String collectionName, Document document) {
-        database.getCollection(collectionName).insertOne(document);
-    }
-}

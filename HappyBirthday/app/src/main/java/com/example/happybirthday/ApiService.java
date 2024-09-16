@@ -1,5 +1,7 @@
 package com.example.happybirthday;
 
+import com.google.gson.JsonObject;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -15,4 +17,6 @@ public interface ApiService {
     @POST("/endpoint")
     Call<Usuario> createClient(@Body Usuario client);
 
+    @POST("Login")
+    Call<ResponseBody> login(@Body String usuario);
 }

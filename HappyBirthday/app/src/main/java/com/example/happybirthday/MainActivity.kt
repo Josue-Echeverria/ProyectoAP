@@ -1,14 +1,16 @@
 package com.example.happybirthday
 
 
-//import android.R
+//import .R
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -39,10 +41,40 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.admin_screen1)
-
-
         val apiService = retrofit.create(ApiService::class.java)
+        setContentView(R.layout.loginpage)
+
+
+
+        findViewById<Button>(R.id.btn_login).setOnClickListener{
+            val nombre : String = findViewById<TextInputEditText>(R.id.username).text.toString()
+            val contrasena : String = findViewById<TextInputEditText>(R.id.password).text.toString()
+            // TODO : QUE SE CONECTE CON LA API BASE DE DATOS (DESCOMENTAR LO DE ABAJO )
+            /**   val login = apiService.login("{username: $nombre, password: $contrasena}")
+            login.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            if (response.isSuccessful) {
+            val responseBody = response.body()
+            if (responseBody != null) {
+            val jsonresponse = JsonParser.parseString(responseBody.string())
+            AQUI DEBERIA DE VENIR LA RESPUESTA
+            }
+            }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            // Handle the error
+            }
+            })*/
+            if(nombre.equals("hola")  && contrasena.equals("hola")){
+                val intent = Intent(this@MainActivity, ProyectosVistaUsuarioActivity::class.java)
+                startActivity(intent)
+
+            }
+
+        }
+
+
         val aa = apiService.getClients()
         aa.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -68,17 +100,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
+/**
         recyclerView = findViewById<RecyclerView>(R.id.RecyclerView)
         recyclerView.setLayoutManager(LinearLayoutManager(this))
 
-        /**
+
          * AQUI DEBERIA DE CARGAR LOS PROYECTOS
-**/
+
         proyectoList = ArrayList<Proyecto>()
         proyectoList.add(Proyecto("Artículo 1", "Descripción del artículo 1", "10/12/2025"))
         proyectoList.add(Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"))
-
+hola
         proyectoAdapter = ItemAdapter(proyectoList, R.layout.item_proyecto) { holder, proyecto, position ->
                 val title: TextView = holder.findView(R.id.project_title)
                 val description: TextView = holder.findView(R.id.project_description)
@@ -168,7 +200,7 @@ class MainActivity : AppCompatActivity() {
             recyclerView.adapter = proyectoAdapter;
         }
     }
-
+    **/
     fun setSelected(textView: TextView){
         findViewById<TextView>(R.id.donaciones_text).setTypeface(null, Typeface.NORMAL)
         findViewById<TextView>(R.id.usuarios_text).setTypeface(null, Typeface.NORMAL)
@@ -177,5 +209,6 @@ class MainActivity : AppCompatActivity() {
         textView.setTypeface(null, Typeface.BOLD)
     }
 
+}
 
 }
