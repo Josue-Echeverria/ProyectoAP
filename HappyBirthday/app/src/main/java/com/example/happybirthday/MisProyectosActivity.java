@@ -1,6 +1,7 @@
 package com.example.happybirthday;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MisProyectosActivity extends AppCompatActivity {
-
+    private SharedPreferences sharedPreferences;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +27,12 @@ public class MisProyectosActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewUserSProyects);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // TODO: JALAR LOS PROYECTOS De LA BASE DE DATOS CON BASE AL USAURIO LOGEADO
+        sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", null);
+
+        // TODO: JALAR LOS PROYECTOS De LA BASE DE DATOS CON BASE AL USAURIO LOGEADO (username)
         List<Proyecto> proyectoList = new ArrayList<>();
         proyectoList.add(new Proyecto("Artículo 1", "Descripción del artssssssssssssssículo 1 sogniw oasbnl spgbmsam pgv ", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
         proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
 
         ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_mi_proyecto) {
@@ -45,7 +48,7 @@ public class MisProyectosActivity extends AppCompatActivity {
                 title.setText(proyecto.getTitle());
                 description.setText(proyecto.getDescription());
                 deadline.setText(proyecto.getFechaLimite());
-                holder.itemView.findViewById(R.id.perfil).setOnClickListener(new View.OnClickListener(){
+                holder.itemView.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MisProyectosActivity.this, EditarProyectoActivity.class);

@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#ffffff"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <!-- Header with Back Arrow and Title -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#F4A8D8"
+        android:orientation="horizontal"
         android:padding="16dp">
 
         <!-- Back Arrow -->
 
         <!-- Title -->
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -26,8 +27,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
             android:text="Proyectos"
-            android:textSize="25sp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
         <ImageView
             android:id="@+id/perfil"
             android:layout_width="44dp"
@@ -40,25 +42,45 @@
 
     </LinearLayout>
     <!-- Project Card -->
-    <EditText
-        android:id="@+id/search_project"
-        android:layout_width="352dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#D3D3D3"
-        android:hint="Buscar proyecto"
-        android:padding="8dp"
-        android:textColor="#000000"
-        android:textColorHint="#757575" />
 
     <!-- Botón Verificar -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Back Arrow -->
+
+        <!-- Title -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="309dp"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_project"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del proyecto" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/btn_search"
+            android:layout_width="44dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Back"
+            android:src="?android:attr/actionModeWebSearchDrawable" />
+
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewUser"
         android:layout_width="match_parent"
-        android:layout_height="396dp"
+        android:layout_height="351dp"
         android:layout_margin="10dp" />
 
     <Button

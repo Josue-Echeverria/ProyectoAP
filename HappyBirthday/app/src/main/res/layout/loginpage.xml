@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:padding="20dp">
     <TextView
-        android:text="@string/login"
+        android:text="Iniciar sesion"
         android:textSize="25sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username"
+            android:id="@+id/search_project"
             android:hint="@string/nombre_de_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -40,7 +40,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#F4A8D8"
-        android:text="@string/login" />
+        android:text="Inicira sesion" />
+
+    <TextView
+        android:id="@+id/register_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="O si no tienes una cuenta, registrate"
+        android:textAlignment="center" />
 
 
 </LinearLayout>

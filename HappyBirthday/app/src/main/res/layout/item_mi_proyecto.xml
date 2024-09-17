@@ -76,7 +76,7 @@
 
         <!-- Edit Icon -->
         <ImageView
-            android:id="@+id/perfil"
+            android:id="@+id/btn_search"
             android:layout_width="66dp"
             android:layout_height="52dp"
             android:layout_marginTop="40dp"

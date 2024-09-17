@@ -32,7 +32,7 @@
             android:src="@drawable/flecha_regreso" />
 
         <ImageView
-            android:id="@+id/perfil"
+            android:id="@+id/btn_search"
             android:layout_width="44dp"
             android:layout_height="43dp"
             android:layout_gravity="center_vertical"
@@ -81,26 +81,6 @@
             android:textSize="16sp" />
 
         <!-- Objective Section -->
-        <TextView
-            android:id="@+id/project_objective_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="Objetivo de financiación:"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/project_objective_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="26dp"
-            android:gravity="center"
-            android:text="El dinero donado a la causa servirá para la alimentación, gastos médicos, transportes y gastos operativos."
-            android:textColor="#000000"
-            android:textSize="16sp" />
 
         <!-- Raised Amount -->
         <TextView
