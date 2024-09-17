@@ -41,7 +41,7 @@ public interface ApiService {
     Call<ResponseBody> postProyecto(@Body String proyecto);
 
     @PUT("project/{name}")
-    Call<ResponseBody> putProyecto(@Path("name") String projectName, @Body String newProject);
+    Call<ResponseBody> putProyecto(@Path("name") String projectName, @Body JsonObject newProject);
 
     @DELETE("project/{name}")
     Call<ResponseBody> deleteProyecto(@Path("name") String projectName);

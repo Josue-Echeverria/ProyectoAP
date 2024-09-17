@@ -49,74 +49,60 @@ public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
 
         List<Proyecto> proyectoList = new ArrayList<>();
         Call<ResponseBody> call = apiService.getProyectos();
-        // LLAMADA A LA BASE D EDATOS
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     ResponseBody responseBody = response.body();
-
-                    Gson gson = new Gson();
                     JsonArray jsonArray = null;
                     try {
-                        jsonArray = JsonParser.parseString(responseBody.string()).getAsJsonArray();
+                        jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
                         List<JsonObject> jsonObjectList = new ArrayList<>();
-
                         for (JsonElement element : jsonArray) {
                             jsonObjectList.add(element.getAsJsonObject());
                         }
 
+                        List<Proyecto> proyectoList = new ArrayList<>();
                         for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString()));
 
                             System.out.println(jsonObject);
                         }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                        ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_proyecto) {
+                            @Override
+                            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                                Proyecto proyecto = proyectoList.get(position);
+                                TextView title = holder.itemView.findViewById(R.id.project_title);
+                                TextView description = holder.itemView.findViewById(R.id.project_description);
+                                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
 
+                                title.setText(proyecto.getTitle());
+                                description.setText(proyecto.getDescription());
+                                deadline.setText(proyecto.getFechaLimite());
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserSession", MODE_PRIVATE);
+                                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("currentProject", proyecto.getTitle());
+                                        editor.apply();
+                                        Intent intent = new Intent(ProyectosVistaUsuarioActivity.this, DetallesActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        };
+                        recyclerView.setAdapter(proyectoAdapter);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // Handle the error
             }
         });
 
-        proyectoList.add(new Proyecto("Artículo 1", "Descripción del artssssssssssssssículo 1 sogniw oasbnl spgbmsam pgv ", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-
-        ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_proyecto) {
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                Proyecto proyecto = proyectoList.get(position);
-                TextView title = holder.itemView.findViewById(R.id.project_title);
-                TextView description = holder.itemView.findViewById(R.id.project_description);
-                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
-
-
-
-                title.setText(proyecto.getTitle());
-                description.setText(proyecto.getDescription());
-                deadline.setText(proyecto.getFechaLimite());
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserSession", MODE_PRIVATE);
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("currentProject", proyecto.getTitle());
-                        editor.apply();
-                        Intent intent = new Intent(ProyectosVistaUsuarioActivity.this, DetallesActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-        };
-
-        recyclerView.setAdapter(proyectoAdapter);
 
         Button btnProyectos = findViewById(R.id.btn_proyectos);
         btnProyectos.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -179,11 +180,9 @@ public class AdminActivity    extends AppCompatActivity {
                             for (JsonElement element : jsonArray) {
                                 jsonObjectList.add(element.getAsJsonObject());
                             }
-
                             List<Usuario> userList = new ArrayList<>();
                             for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
                                 userList.add(new Usuario(jsonObject.get("name").getAsString(), jsonObject.get("phone").getAsString(), jsonObject.get("email").getAsString()));
-                                System.out.println(jsonObject);
                             }
                             ItemAdapter userAdapter = new ItemAdapter(userList, R.layout.item_usuario) {
                                 @Override
@@ -210,15 +209,11 @@ public class AdminActivity    extends AppCompatActivity {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                 }
             });
-
-
         });
 
         TextView estadisticasText = findViewById(R.id.estadisticas_text);
         estadisticasText.setOnClickListener(v -> {
             setSelected(estadisticasText);
-
-            // TODO : QUE JALE TODAS LAS DONACIONES
 
             Call<ResponseBody> call4 = apiService.getProyectos();
             call4.enqueue(new Callback<ResponseBody>() {
@@ -280,8 +275,6 @@ public class AdminActivity    extends AppCompatActivity {
         proyectosText.setOnClickListener(v -> {
             setSelected(proyectosText);
 
-            // TODO : QUE JALE TODAS LAS DONACIONES
-
             Call<ResponseBody> call7 = apiService.getProyectos();
             call7.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -337,6 +330,13 @@ public class AdminActivity    extends AppCompatActivity {
                 }
             });
         });
+
+        Button volver = findViewById(R.id.volver_button);
+        volver.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void setSelected(TextView textView) {

@@ -91,24 +91,6 @@
             android:textSize="20sp" />
 
         <!-- Número de Cédula -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Número de Cédula:"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/id_number"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:drawable/edit_text"
-            android:enabled="false"
-            android:focusable="false"
-            android:text="222222222"
-            android:textSize="20sp" />
 
         <!-- Correo Electrónico -->
         <TextView
@@ -121,7 +103,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@android:drawable/edit_text"

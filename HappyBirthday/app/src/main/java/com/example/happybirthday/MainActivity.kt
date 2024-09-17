@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
                         System.out.println(jsonresponse)
                         val existe: Int = jsonresponse.get("existe").asInt
                         if (existe == 0){
-
+                            // TODO TIRAR UN POP UP
                         }else{
-                            val isAdmin: Int = jsonresponse.get("esAdmin").asInt
+                            val isAdmin: Int = jsonresponse.get("isAdmin").asInt
                             if(isAdmin  == 0){
                                 sharedPreferences = applicationContext.getSharedPreferences("UserSession", MODE_PRIVATE);
                                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
