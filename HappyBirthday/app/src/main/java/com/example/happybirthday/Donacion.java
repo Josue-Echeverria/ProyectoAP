@@ -7,11 +7,13 @@ public class Donacion {
     private String donante;
     private String proyecto;
     private Double monto;
+    private String fecha;
 
-    public Donacion(String title, String description, Double monto) {
-        this.donante = title;
-        this.proyecto = description;
+    public Donacion(String title, String donante, Double monto, String fecha) {
+        this.donante = donante;
+        this.proyecto = title;
         this.monto = monto;
+        this.fecha = fecha;
     }
 
     public String getDonante() {
@@ -22,7 +24,12 @@ public class Donacion {
         return proyecto;
     }
 
-    public Double getmonto() {
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public Double getMonto() {
         return monto;
     }
 }

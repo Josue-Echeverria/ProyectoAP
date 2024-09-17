@@ -14,8 +14,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @POST("Login")
-    Call<ResponseBody> login(@Body String usuario);
+    @POST("verifyUser")
+    Call<ResponseBody> login(@Body JsonObject usuario);
 
     @POST("addUser")
     Call<ResponseBody> postUser(@Body JsonObject usuario);
@@ -23,17 +23,21 @@ public interface ApiService {
     @GET("user/{name}")
     Call<ResponseBody> getUser(@Path("name") String userName);
 
+    @GET("users")
+    Call<ResponseBody> getUsers();
+
     @PUT("user/{name}")
     Call<ResponseBody> putUser(@Path("name") String userName, @Body String newUser);
+
 
 
     @GET("projects")
     Call<ResponseBody> getProyectos();
 
-    @GET("/project/{projectName}")
+    @GET("/projectFull/{projectName}")
     Call<ResponseBody> getProyecto(@Path("projectName") String projectName);
 
-    @POST("project")
+    @POST("addProject")
     Call<ResponseBody> postProyecto(@Body String proyecto);
 
     @PUT("project/{name}")
@@ -44,12 +48,12 @@ public interface ApiService {
 
 
 
-    @GET("donaciones")
+    @GET("donations")
     Call<ResponseBody> getDonaciones();
 
-    @GET("donacion/{name}")
-    Call<ResponseBody> getDonacionUser(@Path("name") String userName);
+    @GET("donation/{donatorName}")
+    Call<ResponseBody> getDonacionUser(@Path("donatorName") String userName);
 
-    @POST("donacion")
-    Call<ResponseBody> postDonacion(@Body String donacion);
+    @POST("addDonacion")
+    Call<ResponseBody> postDonacion(@Body JsonObject donacion);
 }

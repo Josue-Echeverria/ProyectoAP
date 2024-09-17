@@ -48,36 +48,40 @@ class MainActivity : AppCompatActivity() {
             val nombre : String = findViewById<TextInputEditText>(R.id.search_project).text.toString()
             val contrasena : String = findViewById<TextInputEditText>(R.id.password).text.toString()
             // TODO : QUE SE CONECTE CON LA API BASE DE DATOS (DESCOMENTAR LO DE ABAJO )
-            val login = apiService.login("{username: $nombre, password: $contrasena}")
+            val login = apiService.login(JsonParser.parseString("{username: $nombre, password: $contrasena}").asJsonObject)
             login.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         val jsonresponse = JsonParser.parseString(responseBody.string()).asJsonObject
+                        System.out.println(jsonresponse)
+                        val existe: Int = jsonresponse.get("existe").asInt
+                        if (existe == 0){
 
-                        val esAdmin: String = jsonresponse.get("esAdmin").asString
-
-                        if(esAdmin  == "0"){
-                            sharedPreferences = applicationContext.getSharedPreferences("UserSession", MODE_PRIVATE);
-
-                            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                            editor.putString("username", nombre)
-                            editor.putBoolean("isLoggedIn", true)
-                            editor.apply()
-                            val intent = Intent(this@MainActivity, ProyectosVistaUsuarioActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            val intent = Intent(this@MainActivity, ProyectosVistaUsuarioActivity::class.java)
-                            startActivity(intent)
+                        }else{
+                            val isAdmin: Int = jsonresponse.get("esAdmin").asInt
+                            if(isAdmin  == 0){
+                                sharedPreferences = applicationContext.getSharedPreferences("UserSession", MODE_PRIVATE);
+                                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                                editor.putString("username", nombre)
+                                editor.putBoolean("isLoggedIn", true)
+                                editor.apply()
+                                val intent = Intent(this@MainActivity, ProyectosVistaUsuarioActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                val intent = Intent(this@MainActivity, AdminActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
+
+                        /**/
                     //AQUI DEBERIA DE VENIR LA RESPUESTA
                         }
                     }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}})
-
 
 
         }
@@ -112,114 +116,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     */
-/**
-        recyclerView = findViewById<RecyclerView>(R.id.RecyclerView)
-        recyclerView.setLayoutManager(LinearLayoutManager(this))
-
-
-         * AQUI DEBERIA DE CARGAR LOS PROYECTOS
-
-        proyectoList = ArrayList<Proyecto>()
-        proyectoList.add(Proyecto("Artículo 1", "Descripción del artículo 1", "10/12/2025"))
-        proyectoList.add(Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"))
-hola
-        proyectoAdapter = ItemAdapter(proyectoList, R.layout.item_proyecto) { holder, proyecto, position ->
-                val title: TextView = holder.findView(R.id.project_title)
-                val description: TextView = holder.findView(R.id.project_description)
-                val deadline: TextView = holder.findView(R.id.project_deadline)
-
-                title.setText(proyecto.getTitle())
-                description.setText(proyecto.getDescription())
-                deadline.setText(proyecto.getFechaLimite())
-            }
-        recyclerView.adapter = proyectoAdapter
-
-
-        val donacionesText = findViewById<TextView>(R.id.donaciones_text)
-        donacionesText.setOnClickListener {
-            setSelected(donacionesText)
-
-            donacionList = ArrayList<Donacion>()
-            donacionList.add(Donacion("ayuda", "Descripción del artículo 1", 12.2))
-            donacionList.add(Donacion("pppppp2", "Descripción del artículo 2", 56.2))
-
-            donacionAdapter = ItemAdapter(donacionList, R.layout.item_donacion) { holder, donacion, position ->
-                val donante: TextView = holder.findView(R.id.donante_item)
-                val nombreProyecto: TextView = holder.findView(R.id.nombre_proyecto_item)
-                val monto: TextView = holder.findView(R.id.monto_item)
-
-                donante.setText(donacion.getDonante())
-                nombreProyecto.setText(donacion.getProyecto())
-                monto.setText(donacion.getmonto().toString())
-            }
-//            recyclerView.setAdapter(donacionAdapter)
-            recyclerView.adapter = donacionAdapter
-        }
-        val usuariosText = findViewById<TextView>(R.id.usuarios_text)
-        usuariosText.setOnClickListener {
-            setSelected(usuariosText)
-
-            usuarioList = ArrayList<Usuario>()
-            usuarioList.add(Usuario("pepe", "5432", "spam@pinga.com"))
-            usuarioList.add(Usuario("chibolo", "99999999", "spam2@caracoles,.com"))
-
-            usuarioAdapter = ItemAdapter(usuarioList, R.layout.item_usuario) { holder, usuario, position ->
-                val nombre: TextView = holder.findView(R.id.nombre_item)
-                val correo: TextView = holder.findView(R.id.telefono_item)
-                val telefono: TextView = holder.findView(R.id.correo_item)
-
-                nombre.setText(usuario.getnombre())
-                correo.setText(usuario.getCorreo())
-                telefono.setText(usuario.getTelefono())
-            }
-            recyclerView.adapter = usuarioAdapter
-        }
-        val estadisticasText = findViewById<TextView>(R.id.estadisticas_text)
-        estadisticasText.setOnClickListener {
-            setSelected(estadisticasText)
-            proyectoList = ArrayList<Proyecto>()
-            proyectoList.add(Proyecto("Artículo 1", "Descripción del artículo 1", "10/12/2025"))
-            proyectoList.add(Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"))
-
-            proyectoAdapter = ItemAdapter(proyectoList, R.layout.item_proyecto) { holder, proyecto, position ->
-                val title: TextView = holder.findView(R.id.project_title)
-                val description: TextView = holder.findView(R.id.project_description)
-                val deadline: TextView = holder.findView(R.id.project_deadline)
-
-                title.setText(proyecto.getTitle())
-                description.setText(proyecto.getDescription())
-                deadline.setText(proyecto.getFechaLimite())
-            }
-            recyclerView.adapter = proyectoAdapter;
-            setSelected(estadisticasText)
-        }
-        val proyectosText = findViewById<TextView>(R.id.proyectos_text)
-        proyectosText.setOnClickListener {
-            setSelected(proyectosText)
-            proyectoList = ArrayList<Proyecto>()
-            proyectoList.add(Proyecto("Artículo 1", "Descripción del artículo 1", "10/12/2025"))
-            proyectoList.add(Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"))
-
-            proyectoAdapter = ItemAdapter(proyectoList, R.layout.item_proyecto) { holder, proyecto, position ->
-                val title: TextView = holder.findView(R.id.project_title)
-                val description: TextView = holder.findView(R.id.project_description)
-                val deadline: TextView = holder.findView(R.id.project_deadline)
-
-                title.setText(proyecto.getTitle())
-                description.setText(proyecto.getDescription())
-                deadline.setText(proyecto.getFechaLimite())
-            }
-            recyclerView.adapter = proyectoAdapter;
-        }
-    }
-    **/
-    fun setSelected(textView: TextView){
-        findViewById<TextView>(R.id.donaciones_text).setTypeface(null, Typeface.NORMAL)
-        findViewById<TextView>(R.id.usuarios_text).setTypeface(null, Typeface.NORMAL)
-        findViewById<TextView>(R.id.estadisticas_text).setTypeface(null, Typeface.NORMAL)
-        findViewById<TextView>(R.id.proyectos_text).setTypeface(null, Typeface.NORMAL)
-        textView.setTypeface(null, Typeface.BOLD)
-    }
 
 }
 

@@ -131,24 +131,6 @@
             android:textSize="20sp" />
 
         <!-- Área de Trabajo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Área de Trabajo:"
-            android:textColor="#000000"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/job_area"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:drawable/edit_text"
-            android:enabled="false"
-            android:focusable="false"
-            android:text="Estudiante"
-            android:textSize="20sp" />
 
         <!-- Cantidad Inicial en Cartera -->
         <TextView

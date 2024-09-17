@@ -12,47 +12,88 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyDonationsActivity  extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String username;
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mis_donaciones);
+        setContentView(R.layout.mis_donaciones);;
+        ApiService apiService = retrofit.create(ApiService.class);
 
         sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         username = sharedPreferences.getString("username", null);
-        System.out.println(username);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewMisDonaciones);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // TODO: JALAR Lsas donaciones del mae (username)
-        List<Proyecto> proyectoList = new ArrayList<>();
-        proyectoList.add(new Proyecto("Artículo 1", "Descripción del artssssssssssssssículo 1 sogniw oasbnl spgbmsam pgv ", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-
-        ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_mi_donacion) {
+        Call<ResponseBody> call = apiService.getDonacionUser(username);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                Proyecto proyecto = proyectoList.get(position);
-                TextView title = holder.itemView.findViewById(R.id.project_title);
-                TextView description = holder.itemView.findViewById(R.id.project_description);
-                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
-                TextView price = holder.itemView.findViewById(R.id.project_price);
-                // TODO Remplazar price por la donacion que haya hecho el mae
-                price.setText("109");
-                title.setText(proyecto.getTitle());
-                description.setText(proyecto.getDescription());
-                deadline.setText(proyecto.getFechaLimite());
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    ResponseBody responseBody = response.body();
+                    JsonArray jsonArray = null;
+                    try {
+                        jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
+                        List<JsonObject> jsonObjectList = new ArrayList<>();
+                        for (JsonElement element : jsonArray) {
+                            jsonObjectList.add(element.getAsJsonObject());
+                        }
+
+                        List<Donacion> donacionList = new ArrayList<>();
+                        for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                            donacionList.add(new Donacion(jsonObject.get("project").getAsString(), jsonObject.get("nameDonator").getAsString(), jsonObject.get("amount").getAsDouble(), jsonObject.get("date").getAsString()));
+                        }
+
+                        ItemAdapter proyectoAdapter = new ItemAdapter(donacionList, R.layout.item_mi_donacion) {
+                            @Override
+                            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                                Donacion donacion = donacionList.get(position);
+                                TextView title = holder.itemView.findViewById(R.id.project_title);
+                                TextView description = holder.itemView.findViewById(R.id.project_description);
+                                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                                TextView amount = holder.itemView.findViewById(R.id.project_price);
+
+                                amount.setText(donacion.getMonto().toString());
+                                title.setText(donacion.getProyecto());
+                                deadline.setText(donacion.getFecha());
+                            }
+                        };
+                        recyclerView.setAdapter(proyectoAdapter);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
             }
-        };
-        recyclerView.setAdapter(proyectoAdapter);
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+
         ImageView back = findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

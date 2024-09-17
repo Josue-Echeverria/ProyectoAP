@@ -63,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
                 editor.putString("username", name);
                 editor.putBoolean("isLoggedIn", true);
                 editor.apply();
-/*{"_id":{"$oid":"66e7beec245bf9fd12c80c9b"},"name":"josue","email":"echeverria@gmail.com","password":"batman","phone":"86108128","isActive":{"$numberInt":"1"},"wallet":{"$numberInt":"50"}}*/
                 Call<ResponseBody> call = apiService.postUser(JsonParser.parseString("{name:"+name+",email:"+correo+",password:"+password+",phone:"+phone+",wallet:"+amount+"}").getAsJsonObject());
 
                 call.enqueue(new Callback<ResponseBody>() {

@@ -32,17 +32,53 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DetallesActivity  extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
-    private APIHelper api = new APIHelper();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalles_proyectos);
-
+        ApiService apiService = retrofit.create(ApiService.class);
         sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         String proyectSelected = sharedPreferences.getString("currentProject", null);
 
-        System.out.println(proyectSelected);
+        Call<ResponseBody> call = apiService.getProyecto(proyectSelected);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    ResponseBody responseBody = response.body();
+                    JsonArray jsonArray = null;
+                    try {
+                        jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
+                        List<JsonObject> jsonObjectList = new ArrayList<>();
+                        for (JsonElement element : jsonArray) {
+                            jsonObjectList.add(element.getAsJsonObject());
+                        }
+                        for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                            TextView title = findViewById(R.id.project_title);
+                            title.setText(jsonObject.get("name").getAsString());
+                            TextView description = findViewById(R.id.project_description);
+                            description.setText(jsonObject.get("description").getAsString());
+                            TextView deadline = findViewById(R.id.deadline_date);
+                            deadline.setText(jsonObject.get("endDate").getAsString());
+                            TextView recaudado = findViewById(R.id.raised_amount);
+                            recaudado.setText(jsonObject.get("gathered").getAsString());
+                        };
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+
 
         ImageView back = findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {
