@@ -59,9 +59,9 @@ public class EditarProyectoActivity extends AppCompatActivity {
                             EditText projectdescription = findViewById(R.id.project_description);
                             projectdescription.setText(jsonObject.get("description").getAsString());
                             EditText projectFinancingObjective = findViewById(R.id.financing_objective);
-                            projectFinancingObjective.setText(jsonObject.get("endDate").getAsString());
+                            projectFinancingObjective.setText(jsonObject.get("gathered").getAsString());
                             EditText projectDeadline = findViewById(R.id.deadline);
-                            projectDeadline.setText(jsonObject.get("gathered").getAsString());
+                            projectDeadline.setText(jsonObject.get("endDate").getAsString());
                         };
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -79,6 +79,7 @@ public class EditarProyectoActivity extends AppCompatActivity {
         btnProyectos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("HOLAAAAAAAAA");
                 EditText projectNameEdit = findViewById(R.id.project_name);
                 String projectName = projectNameEdit.getText().toString();
                 EditText projectdescriptionEdit = findViewById(R.id.project_description);
@@ -87,8 +88,12 @@ public class EditarProyectoActivity extends AppCompatActivity {
                 String projectFinancingObjective = projectFinancingObjectiveEdit.getText().toString();
                 EditText projectDeadlineEdit = findViewById(R.id.deadline);
                 String projectDeadline = projectDeadlineEdit.getText().toString();
-                Call<ResponseBody> call2 = apiService.putProyecto( proyectSelected,
-                        JsonParser.parseString("{\"name\":\"" + projectName + "\",\"date\":\"" + projectdescription + "\",\"projectName\":\"" + projectFinancingObjective + "\",\"amount\":\"" + projectDeadline + "\"}")
+                System.out.println(projectDeadline);
+                System.out.println(projectFinancingObjective);
+                System.out.println(projectdescription);
+                System.out.println(projectName);
+                Call<ResponseBody> call2 = apiService.putProyecto(
+                        JsonParser.parseString("{\"description\":\"" + projectdescription + "\",\"name\":\"" + projectName +  "\",\"goal\":\"" + projectFinancingObjective +"\",\"endDate\":\"" + projectDeadline + "\"}")
                                 .getAsJsonObject()
                 );
                 call2.enqueue(new Callback<ResponseBody>() {
@@ -96,8 +101,9 @@ public class EditarProyectoActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             ResponseBody responseBody = response.body();
+                            // TODO TEST EL PUDATE
                         }
-                    }// TODO TEST THIS (HARLEN NO HA HECHO EL UPDATE PROYECTO)
+                    }
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                     }

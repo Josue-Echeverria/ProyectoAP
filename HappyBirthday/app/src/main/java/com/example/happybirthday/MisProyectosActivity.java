@@ -78,14 +78,15 @@ public class MisProyectosActivity extends AppCompatActivity {
                                 TextView recaudado = holder.itemView.findViewById(R.id.project_price);
                                 ImageView imagen = holder.itemView.findViewById(R.id.project_image);
 
+                                // TODO
                                 if(proyecto.getTitle() == "Give Ana a hand"){
-                                    imagen.setImageResource(R.drawable.animalrescue);
+    //                                imagen.setImageResource(R.drawable.animalrescue);
                                 }else if(proyecto.getTitle() == "Tadmin"){
-                                    imagen.setImageResource(R.drawable.img);
+  //                                  imagen.setImageResource(R.drawable.img);
                                 }else if(proyecto.getTitle() == "Emprendimiento"){
                                     imagen.setImageResource(R.drawable.img_1);
                                 }else  {
-                                    imagen.setImageResource(R.drawable.img_2);
+//                                    imagen.setImageResource(R.drawable.img_2);
                                 }
 
                                 title.setText(proyecto.getTitle());
