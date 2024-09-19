@@ -64,7 +64,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="Animal Rescue"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -76,7 +75,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="26dp"
             android:gravity="center"
-            android:text="Este proyecto busca rescatar, rehabilitar y promover la adopción de perros que se encuentran en situación de abandono y vulnerabilidad."
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -100,7 +98,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="26dp"
             android:gravity="center"
-            android:text="$10 075"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -122,7 +119,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="26dp"
             android:gravity="center"
-            android:text="25/12/2024"
             android:textColor="#000000"
             android:textSize="16sp" />
 

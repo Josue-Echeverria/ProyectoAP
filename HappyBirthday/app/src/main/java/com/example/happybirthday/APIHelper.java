@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIHelper {
     private SharedPreferences sharedPreferences;
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
                 .addConverterFactory(GsonConverterFactory.create())
             .build();
     private ApiService apiService = retrofit.create(ApiService.class);

@@ -27,7 +27,7 @@ public class DonarActivity   extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     @Override
@@ -48,7 +48,6 @@ public class DonarActivity   extends AppCompatActivity {
         donar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*{"_id":{"$oid":"66e7c88b245bf9fd12c80c9c"},"nameDonator":"josue","date":"9-15-2024","amount":{"$numberInt":"2000"},"project":"Give Ana a hand"}*/
                 EditText amountEditText = findViewById(R.id.donation_amount);
                 String amount = amountEditText.getText().toString();
 
@@ -77,8 +76,6 @@ public class DonarActivity   extends AppCompatActivity {
                         // Handle the error
                     }
                 });
-
-
             }
         });
     }

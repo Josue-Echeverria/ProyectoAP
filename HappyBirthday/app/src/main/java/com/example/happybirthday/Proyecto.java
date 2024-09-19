@@ -7,7 +7,7 @@ public class Proyecto {
     private String title;
     private String description;
     private String fechaLimite;
-    private double recaudado;
+    private String recaudado;
     private double meta;
     private Image img;
 
@@ -15,6 +15,13 @@ public class Proyecto {
         this.title = title;
         this.description = description;
         this.fechaLimite = fechaLimite;
+    }
+
+    public Proyecto(String title, String description, String fechaLimite, String recaudado) {
+        this.title = title;
+        this.description = description;
+        this.fechaLimite = fechaLimite;
+        this.recaudado = recaudado;
     }
 
     public String getTitle() {
@@ -29,11 +36,8 @@ public class Proyecto {
         return fechaLimite;
     }
 
-    public double getRecaudado() {
+    public String getRecaudado() {
         return recaudado;
     }
 
-    public void setRecaudado(double recaudado) {
-        this.recaudado = recaudado;
-    }
 }

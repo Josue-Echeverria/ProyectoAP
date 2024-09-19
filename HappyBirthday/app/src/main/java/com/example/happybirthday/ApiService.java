@@ -29,7 +29,8 @@ public interface ApiService {
     @PUT("user/{name}")
     Call<ResponseBody> putUser(@Path("name") String userName, @Body String newUser);
 
-
+    @POST("update_password")
+    Call<ResponseBody> update_password(@Body JsonObject usuario);
 
     @GET("projects")
     Call<ResponseBody> getProyectos();
@@ -37,8 +38,11 @@ public interface ApiService {
     @GET("/projectFull/{projectName}")
     Call<ResponseBody> getProyecto(@Path("projectName") String projectName);
 
-    @POST("addProject")
-    Call<ResponseBody> postProyecto(@Body String proyecto);
+    @GET("/projectByName/{creatorName}")
+    Call<ResponseBody> getProyectobyUser(@Path("creatorName") String creatorName);
+
+    @POST("addProyecto")
+    Call<ResponseBody> postProyecto(@Body JsonObject proyecto);
 
     @PUT("project/{name}")
     Call<ResponseBody> putProyecto(@Path("name") String projectName, @Body JsonObject newProject);

@@ -1,6 +1,7 @@
 package com.example.happybirthday;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +20,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CrearProyectoActivity  extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -29,6 +31,8 @@ public class CrearProyectoActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ApiService apiService = retrofit.create(ApiService.class);
         setContentView(R.layout.crear_proyecto);
+        sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+
         ImageView back = findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +53,9 @@ public class CrearProyectoActivity  extends AppCompatActivity {
                 String objetivo = editTextobjetivo.getText().toString();
                 EditText editTextfechalimnite = findViewById(R.id.deadline);
                 String fechalimnite = editTextfechalimnite.getText().toString();
-//{"_id":{"$oid":"66e7bdc8245bf9fd12c80c9a"},"name":"Give Ana a hand","description":"Help my daughter Ana, a little girl with cancer","goal":{"$numberInt":"5000"},"endDate":"12-10-2024","gathered":{"$numberInt":"2000"},"state":{"$numberInt":"1"},"creator":"harlen"}
 
-
-                Call<ResponseBody> call = apiService.postUser(JsonParser.parseString("{name:"+nombre+",description:"+descripcion+",goal:"+objetivo+",endDate:"+fechalimnite+"}").getAsJsonObject());
+                String creator = sharedPreferences.getString("username", null);
+                Call<ResponseBody> call = apiService.postProyecto(JsonParser.parseString("{\"name\":\"" + nombre + "\",\"description\":\"" + descripcion  + "\",\"creator\":\"" +creator + "\",\"goal\":\"" + objetivo + "\",\"endDate\":\"" + fechalimnite + "\"}").getAsJsonObject());
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override

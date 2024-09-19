@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -64,7 +64,7 @@
     <!-- Change Password Link -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="524dp"
+        android:layout_height="442dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:background="#f5f5f5"
@@ -78,7 +78,7 @@
             android:layout_marginBottom="8dp"
             android:text="Nombre Completo:"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/full_name"
@@ -87,7 +87,7 @@
             android:background="@android:drawable/edit_text"
             android:enabled="false"
             android:focusable="false"
-            android:text="Jane Doe"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <!-- Número de Cédula -->
@@ -100,7 +100,7 @@
             android:layout_marginBottom="8dp"
             android:text="Correo Electrónico:"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/correo"
@@ -109,7 +109,7 @@
             android:background="@android:drawable/edit_text"
             android:enabled="false"
             android:focusable="false"
-            android:text="Jane@estudiantec.cr"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <!-- Área de Trabajo -->
@@ -122,7 +122,7 @@
             android:layout_marginBottom="8dp"
             android:text="Cantidad Inicial de Dinero en Cartera Digital:"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/digital_wallet_amount"
@@ -131,7 +131,7 @@
             android:background="@android:drawable/edit_text"
             android:enabled="false"
             android:focusable="false"
-            android:text="$40"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <!-- Número de Teléfono -->
@@ -142,7 +142,7 @@
             android:layout_marginBottom="8dp"
             android:text="Número de Teléfono:"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/phone_number"
@@ -151,7 +151,7 @@
             android:background="@android:drawable/edit_text"
             android:enabled="false"
             android:focusable="false"
-            android:text="+506 28288998"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
 

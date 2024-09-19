@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -128,9 +128,6 @@ public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
                 String projectName = projectNameSearch.getText().toString();
 
                 if (projectName.isEmpty()) {
-                    List<Proyecto> proyectoList = new ArrayList<>();
-                    proyectoList.add(new Proyecto("Artículo 1", "Descripción del artssssssssssssssículo 1 sogniw oasbnl spgbmsam pgv ", "10/12/2025"));
-
                     ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_proyecto) {
 
                         @Override

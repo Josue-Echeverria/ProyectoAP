@@ -4,7 +4,6 @@ package com.example.happybirthday
 //import .R
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var estadisticaAdapter: ItemAdapter<Donacion>
     private lateinit var estadisticaList: MutableList<Donacion>
     var retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+        .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -41,13 +40,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val apiService = retrofit.create(ApiService::class.java)
         setContentView(R.layout.loginpage)
-  //      val intent = Intent(this@MainActivity, ProyectosVistaUsuarioActivity::class.java)
-  //      startActivity(intent)
 
         findViewById<Button>(R.id.btn_login).setOnClickListener{
             val nombre : String = findViewById<TextInputEditText>(R.id.search_project).text.toString()
             val contrasena : String = findViewById<TextInputEditText>(R.id.password).text.toString()
-            // TODO : QUE SE CONECTE CON LA API BASE DE DATOS (DESCOMENTAR LO DE ABAJO )
+            System.out.println("{username: $nombre, password: $contrasena}")
+
             val login = apiService.login(JsonParser.parseString("{username: $nombre, password: $contrasena}").asJsonObject)
             login.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -55,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         val jsonresponse = JsonParser.parseString(responseBody.string()).asJsonObject
-                        System.out.println(jsonresponse)
                         val existe: Int = jsonresponse.get("existe").asInt
                         if (existe == 0){
                             // TODO TIRAR UN POP UP
@@ -74,49 +71,14 @@ class MainActivity : AppCompatActivity() {
                                 startActivity(intent)
                             }
                         }
-
-                        /**/
-                    //AQUI DEBERIA DE VENIR LA RESPUESTA
-                        }
                     }
+                }
             }
-
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}})
-
-
         }
-
         findViewById<TextView>(R.id.register_text).setOnClickListener{
             val intent = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
-/*
-        val aa = apiService.getClients()
-        aa.enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-
-                    if (responseBody != null) {
-                        val gson = Gson()
-                        val jsonArray = JsonParser.parseString(responseBody.string()).asJsonArray
-                        val jsonObjectList: List<JsonObject> = jsonArray.map { it.asJsonObject }
-
-                        jsonObjectList.forEach { jsonObject ->
-                            val name = jsonObject.get("cast")
-                            println("Name: $name")
-                            println(jsonObject)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // Handle the error
-            }
-        })
-    */
-
-}
-
+    }
 }

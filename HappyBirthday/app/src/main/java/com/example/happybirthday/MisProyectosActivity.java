@@ -13,52 +13,107 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MisProyectosActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String username;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mis_proyectos);
+        ApiService apiService = retrofit.create(ApiService.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewUserSProyects);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         username = sharedPreferences.getString("username", null);
 
-        // TODO: JALAR LOS PROYECTOS De LA BASE DE DATOS CON BASE AL USAURIO LOGEADO (username)
         List<Proyecto> proyectoList = new ArrayList<>();
-        proyectoList.add(new Proyecto("Artículo 1", "Descripción del artssssssssssssssículo 1 sogniw oasbnl spgbmsam pgv ", "10/12/2025"));
-        proyectoList.add(new Proyecto("Artículo 2", "Descripción del artículo 2", "10/12/2025"));
-
-        ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_mi_proyecto) {
+        Call<ResponseBody> call = apiService.getProyectobyUser(username);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                Proyecto proyecto = proyectoList.get(position);
-                TextView title = holder.itemView.findViewById(R.id.project_title);
-                TextView description = holder.itemView.findViewById(R.id.project_description);
-                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
-                TextView recaudado = holder.itemView.findViewById(R.id.project_price);
-                // TODO : QUitar este dato
-                recaudado.setText("1222222");
-                title.setText(proyecto.getTitle());
-                description.setText(proyecto.getDescription());
-                deadline.setText(proyecto.getFechaLimite());
-                holder.itemView.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MisProyectosActivity.this, EditarProyectoActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-        };
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    ResponseBody responseBody = response.body();
+                    JsonArray jsonArray = null;
+                    try {
+                        jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
+                        List<JsonObject> jsonObjectList = new ArrayList<>();
+                        for (JsonElement element : jsonArray) {
+                            jsonObjectList.add(element.getAsJsonObject());
+                        }
 
-        recyclerView.setAdapter(proyectoAdapter);
+                        List<Proyecto> proyectoList = new ArrayList<>();
+                        for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(), jsonObject.get("gathered").getAsString()));
+                        }
+
+                        ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_mi_proyecto) {
+                            @Override
+                            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                                Proyecto proyecto = proyectoList.get(position);
+                                TextView title = holder.itemView.findViewById(R.id.project_title);
+                                TextView description = holder.itemView.findViewById(R.id.project_description);
+                                TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                                TextView recaudado = holder.itemView.findViewById(R.id.project_price);
+                                ImageView imagen = holder.itemView.findViewById(R.id.project_image);
+
+                                if(proyecto.getTitle() == "Give Ana a hand"){
+                                    imagen.setImageResource(R.drawable.animalrescue);
+                                }else if(proyecto.getTitle() == "Tadmin"){
+                                    imagen.setImageResource(R.drawable.img);
+                                }else if(proyecto.getTitle() == "Emprendimiento"){
+                                    imagen.setImageResource(R.drawable.img_1);
+                                }else  {
+                                    imagen.setImageResource(R.drawable.img_2);
+                                }
+
+                                title.setText(proyecto.getTitle());
+                                description.setText(proyecto.getDescription());
+                                deadline.setText(proyecto.getFechaLimite());
+                                recaudado.setText(proyecto.getRecaudado());
+
+                                holder.itemView.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener(){
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(MisProyectosActivity.this, EditarProyectoActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        };
+
+                        recyclerView.setAdapter(proyectoAdapter);
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
 
         ImageView back = findViewById(R.id.back_arrow);
         back.setOnClickListener(new View.OnClickListener() {

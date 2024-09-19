@@ -31,7 +31,7 @@ public class PerfilActivity   extends AppCompatActivity {
     private String username;
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://8464-201-192-142-225.ngrok-free.app/")
+            .baseUrl("https://oyster-robust-ghost.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -56,8 +56,9 @@ public class PerfilActivity   extends AppCompatActivity {
                         List<JsonObject> jsonObjectList = new ArrayList<>();
                         for (JsonElement element : jsonArray) {
                             jsonObjectList.add(element.getAsJsonObject());
-                        } // TODO TEST THIS (INFO DEL USER SE FORMATEA BIEN EN LA INTERFAZ)
+                        }
                         for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                            System.out.println(jsonObject);
                             TextView name = findViewById(R.id.full_name);
                             name.setText(jsonObject.get("name").getAsString());
                             TextView correo = findViewById(R.id.correo);
