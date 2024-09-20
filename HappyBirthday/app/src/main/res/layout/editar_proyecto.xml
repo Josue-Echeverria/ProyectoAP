@@ -122,59 +122,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar imágenes:"
+        android:text="Url de la imagen:"
         android:textSize="16sp"
         android:textColor="#000000"
         android:layout_marginBottom="8dp" />
 
-    <LinearLayout
-        android:layout_width="381dp"
-        android:layout_height="82dp"
-        android:layout_marginBottom="16dp"
-        android:background="#E0E0E0"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <!-- Existing Image -->
-        <ImageView
-            android:id="@+id/existing_image"
-            android:layout_width="81dp"
-            android:layout_height="57dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="Imagen existente"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/upload" />
-
-        <!-- Add New Image Button -->
-    </LinearLayout>
-
-    <!-- Add Videos Section -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agregar videos:"
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:layout_marginBottom="8dp" />
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/img_url"
         android:layout_width="match_parent"
-        android:layout_height="79dp"
-        android:layout_marginBottom="24dp"
-        android:background="#E0E0E0"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <!-- Add New Video Button -->
-        <ImageView
-            android:id="@+id/add_video_button"
-            android:layout_width="81dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="Subir video"
-            android:src="@drawable/upload" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/edit_text"
+        android:layout_marginBottom="16dp" />
+    <!-- Add Videos Section -->
 
 
 </LinearLayout>

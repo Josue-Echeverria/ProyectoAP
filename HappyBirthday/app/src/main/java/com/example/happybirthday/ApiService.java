@@ -47,10 +47,15 @@ public interface ApiService {
     @POST("updateProject")
     Call<ResponseBody> putProyecto(@Body JsonObject newProject);
 
-    @DELETE("project/{name}")
-    Call<ResponseBody> deleteProyecto(@Path("name") String projectName);
 
+    @GET("getImageLink")
+    Call<ResponseBody> getChartLink();
 
+    @POST("toggleUserActive")
+    Call<ResponseBody> activateUser(@Body JsonObject newProject);
+
+    @GET("deactivate")
+    Call<ResponseBody> deactivateUser(@Path("name") String userName);
 
     @GET("donations")
     Call<ResponseBody> getDonaciones();

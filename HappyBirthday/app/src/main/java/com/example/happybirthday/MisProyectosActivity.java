@@ -28,6 +28,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.squareup.picasso.Picasso;
+import android.widget.ImageView;
 
 public class MisProyectosActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -65,7 +67,7 @@ public class MisProyectosActivity extends AppCompatActivity {
 
                         List<Proyecto> proyectoList = new ArrayList<>();
                         for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(), jsonObject.get("gathered").getAsString()));
+                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(), jsonObject.get("gathered").getAsString(), jsonObject.get("logo").getAsString()));
                         }
 
                         ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_mi_proyecto) {
@@ -78,17 +80,7 @@ public class MisProyectosActivity extends AppCompatActivity {
                                 TextView recaudado = holder.itemView.findViewById(R.id.project_price);
                                 ImageView imagen = holder.itemView.findViewById(R.id.project_image);
 
-                                // TODO
-                                if(proyecto.getTitle() == "Give Ana a hand"){
-    //                                imagen.setImageResource(R.drawable.animalrescue);
-                                }else if(proyecto.getTitle() == "Tadmin"){
-  //                                  imagen.setImageResource(R.drawable.img);
-                                }else if(proyecto.getTitle() == "Emprendimiento"){
-                                    imagen.setImageResource(R.drawable.img_1);
-                                }else  {
-//                                    imagen.setImageResource(R.drawable.img_2);
-                                }
-
+                                Picasso.get().load(proyecto.getImg()).into(imagen);
                                 title.setText(proyecto.getTitle());
                                 description.setText(proyecto.getDescription());
                                 deadline.setText(proyecto.getFechaLimite());

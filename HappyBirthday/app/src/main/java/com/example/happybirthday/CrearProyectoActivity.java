@@ -53,9 +53,11 @@ public class CrearProyectoActivity  extends AppCompatActivity {
                 String objetivo = editTextobjetivo.getText().toString();
                 EditText editTextfechalimnite = findViewById(R.id.deadline);
                 String fechalimnite = editTextfechalimnite.getText().toString();
+                EditText editTexturl = findViewById(R.id.img_url);
+                String url = editTexturl.getText().toString();
 
                 String creator = sharedPreferences.getString("username", null);
-                Call<ResponseBody> call = apiService.postProyecto(JsonParser.parseString("{\"name\":\"" + nombre + "\",\"description\":\"" + descripcion  + "\",\"creator\":\"" +creator + "\",\"goal\":\"" + objetivo + "\",\"endDate\":\"" + fechalimnite + "\"}").getAsJsonObject());
+                Call<ResponseBody> call = apiService.postProyecto(JsonParser.parseString("{\"name\":\"" + nombre + "\",\"description\":\"" + descripcion  + "\",\"logo\":\"" + url  + "\",\"creator\":\"" +creator + "\",\"goal\":\"" + objetivo + "\",\"endDate\":\"" + fechalimnite + "\"}").getAsJsonObject());
 
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override

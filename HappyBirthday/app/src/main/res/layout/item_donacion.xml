@@ -13,11 +13,11 @@
 
     <!-- Project Info -->
     <ImageView
-        android:id="@+id/project_image"
+        android:id="@+id/img_url_donacion"
         android:layout_width="100dp"
         android:layout_marginTop="10dp"
         android:layout_height="100dp"
-        android:src="@drawable/neuromedicine" />
+        />
 
     <LinearLayout
         android:layout_width="0dp"

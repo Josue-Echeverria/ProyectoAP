@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class AdminActivity    extends AppCompatActivity {
 
                         List<Proyecto> proyectoList = new ArrayList<>();
                         for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString()));
+                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(), jsonObject.get("gathered").getAsString(), jsonObject.get("logo").getAsString()));
 
                             System.out.println(jsonObject);
                         }
@@ -82,7 +84,9 @@ public class AdminActivity    extends AppCompatActivity {
                                 TextView title = holder.itemView.findViewById(R.id.project_title);
                                 TextView description = holder.itemView.findViewById(R.id.project_description);
                                 TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                                ImageView imagen = holder.itemView.findViewById(R.id.project_image1);
 
+                                Picasso.get().load(proyecto.getImg()).into(imagen);
                                 title.setText(proyecto.getTitle());
                                 description.setText(proyecto.getDescription());
                                 deadline.setText(proyecto.getFechaLimite());
@@ -115,7 +119,6 @@ public class AdminActivity    extends AppCompatActivity {
         TextView donacionesText = findViewById(R.id.donaciones_text);
         donacionesText.setOnClickListener(v -> {
             setSelected(donacionesText);
-
             Call<ResponseBody> call1 = apiService.getDonaciones();
             call1.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -144,7 +147,34 @@ public class AdminActivity    extends AppCompatActivity {
                                     TextView amount = holder.itemView.findViewById(R.id.project_price);
                                     TextView donante = holder.itemView.findViewById(R.id.donante);
                                     TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                                    ImageView img = holder.itemView.findViewById(R.id.img_url_donacion);
 
+                                    Call<ResponseBody> call1 = apiService.getProyecto(donacion.getProyecto());
+                                    call1.enqueue(new Callback<ResponseBody>() {
+                                                      @Override
+                                                      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                          if (response.isSuccessful()) {
+                                                              ResponseBody responseBody = response.body();
+                                                              JsonArray jsonArray = null;
+                                                              try {
+                                                                  jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
+                                                                  List<JsonObject> jsonObjectList = new ArrayList<>();
+                                                                  for (JsonElement element : jsonArray) {
+                                                                      System.out.println(element.getAsJsonObject());
+                                                                      jsonObjectList.add(element.getAsJsonObject());
+                                                                  }
+                                                                  for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
+                                                                      Picasso.get().load(jsonObject.get("logo").getAsString()).into(img);
+                                                                  };
+                                                              } catch (IOException e) {
+                                                                  throw new RuntimeException(e);
+                                                              }
+                                                          }
+                                                      }
+                                                      @Override
+                                                      public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                      }
+                                                  });
                                     amount.setText(donacion.getMonto().toString());
                                     title.setText(donacion.getProyecto());
                                     donante.setText(donacion.getDonante());
@@ -182,7 +212,9 @@ public class AdminActivity    extends AppCompatActivity {
                             }
                             List<Usuario> userList = new ArrayList<>();
                             for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                                userList.add(new Usuario(jsonObject.get("name").getAsString(), jsonObject.get("phone").getAsString(), jsonObject.get("email").getAsString()));
+                                System.out.println(jsonObject);
+                                if(!jsonObject.get("name").getAsString().equals("admin"))
+                                    userList.add(new Usuario(jsonObject.get("name").getAsString(), jsonObject.get("phone").getAsString(), jsonObject.get("email").getAsString(), jsonObject.get("isActive").getAsInt()));
                             }
                             ItemAdapter userAdapter = new ItemAdapter(userList, R.layout.item_usuario) {
                                 @Override
@@ -193,10 +225,54 @@ public class AdminActivity    extends AppCompatActivity {
                                     TextView correo = holder.itemView.findViewById(R.id.correo_item);
                                     Switch activo = holder.itemView.findViewById(R.id.switch1);
 
-                                    activo.setChecked(true);
+                                    if(usuario.getActivo() == 0) {
+                                        activo.setChecked(false);
+                                        activo.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                Call<ResponseBody> call07 = apiService.activateUser(
+                                                        JsonParser.parseString("{\"name\":\"" + usuario.getnombre() + "\",\"action\":\"" + "activate" + "\"}")
+                                                                .getAsJsonObject());
+                                                call07.enqueue(new Callback<ResponseBody>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                        if (response.isSuccessful()) {
+                                                            ResponseBody responseBody = response.body();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        activo.setChecked(true);
+                                        activo.setOnClickListener(v -> {
+                                            Call<ResponseBody> call07 = apiService.activateUser(
+                                                    JsonParser.parseString("{\"name\":\"" + usuario.getnombre() + "\",\"action\":\"" + "deactivate" + "\"}")
+                                                            .getAsJsonObject());
+                                            call07.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        ResponseBody responseBody = response.body();
+                                                    }
+                                                }
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                }
+                                            });
+                                        });
+                                    }
+
                                     nombre.setText(usuario.getnombre());
                                     telefono.setText(usuario.getTelefono());
                                     correo.setText(usuario.getCorreo());
+
                                 }
                             };
                             recyclerView.setAdapter(userAdapter);
@@ -215,60 +291,42 @@ public class AdminActivity    extends AppCompatActivity {
         estadisticasText.setOnClickListener(v -> {
             setSelected(estadisticasText);
 
-            Call<ResponseBody> call4 = apiService.getProyectos();
-            call4.enqueue(new Callback<ResponseBody>() {
+            Call<ResponseBody> call2 = apiService.getChartLink();
+            call2.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
+
                         ResponseBody responseBody = response.body();
-                        JsonArray jsonArray = null;
                         try {
-                            jsonArray = (JsonArray) JsonParser.parseString(responseBody.string());
-                            List<JsonObject> jsonObjectList = new ArrayList<>();
-                            for (JsonElement element : jsonArray) {
-                                jsonObjectList.add(element.getAsJsonObject());
-                            }
+                            JsonObject jsonObject = JsonParser.parseString(responseBody.string()).getAsJsonObject();
+                            System.out.println(jsonObject);
+                            List<Chart> chartlist = new ArrayList<>();
+                            chartlist.add(new Chart(jsonObject.get("grafico_pastel_proyectos").getAsString()));
+                            chartlist.add(new Chart(jsonObject.get("user_activity_chart").getAsString()));
 
-                            List<Proyecto> proyectoList = new ArrayList<>();
-                            for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                                proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString()));
 
-                                System.out.println(jsonObject);
-                            }
-                            ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_proyecto) {
+                            ItemAdapter itemAdapter2 = new ItemAdapter(chartlist, R.layout.item_chart) {
                                 @Override
                                 public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                                    Proyecto proyecto = proyectoList.get(position);
-                                    TextView title = holder.itemView.findViewById(R.id.project_title);
-                                    TextView description = holder.itemView.findViewById(R.id.project_description);
-                                    TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
-
-                                    title.setText(proyecto.getTitle());
-                                    description.setText(proyecto.getDescription());
-                                    deadline.setText(proyecto.getFechaLimite());
-                                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserSession", MODE_PRIVATE);
-                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("currentProject", proyecto.getTitle());
-                                            editor.apply();
-                                            Intent intent = new Intent(AdminActivity.this, DetallesActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
+                                    Chart chart = chartlist.get(position);
+                                    ImageView chartView = holder.itemView.findViewById(R.id.chart);
+                                    Picasso.get().load(chart.getImg_url()).into(chartView);
                                 }
                             };
-                            recyclerView.setAdapter(proyectoAdapter);
+                            recyclerView.setAdapter(itemAdapter2);
+
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                 }
             });
+
         });
 
         TextView proyectosText = findViewById(R.id.proyectos_text);
@@ -291,9 +349,7 @@ public class AdminActivity    extends AppCompatActivity {
 
                             List<Proyecto> proyectoList = new ArrayList<>();
                             for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                                proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString()));
-
-                                System.out.println(jsonObject);
+                                proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(), jsonObject.get("gathered").getAsString(), jsonObject.get("logo").getAsString()));
                             }
                             ItemAdapter proyectoAdapter = new ItemAdapter(proyectoList, R.layout.item_proyecto) {
                                 @Override
@@ -302,7 +358,9 @@ public class AdminActivity    extends AppCompatActivity {
                                     TextView title = holder.itemView.findViewById(R.id.project_title);
                                     TextView description = holder.itemView.findViewById(R.id.project_description);
                                     TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                                    ImageView imagen = holder.itemView.findViewById(R.id.project_image1);
 
+                                    Picasso.get().load(proyecto.getImg()).into(imagen);
                                     title.setText(proyecto.getTitle());
                                     description.setText(proyecto.getDescription());
                                     deadline.setText(proyecto.getFechaLimite());

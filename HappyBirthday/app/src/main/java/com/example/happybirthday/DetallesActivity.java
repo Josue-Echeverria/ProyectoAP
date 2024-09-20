@@ -17,6 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,6 +68,9 @@ public class DetallesActivity  extends AppCompatActivity {
                             deadline.setText(jsonObject.get("endDate").getAsString());
                             TextView recaudado = findViewById(R.id.raised_amount);
                             recaudado.setText(jsonObject.get("gathered").getAsString());
+
+                            ImageView imagen = findViewById(R.id.project_image);
+                            Picasso.get().load(jsonObject.get("logo").getAsString()).into(imagen);
                         };
                     } catch (IOException e) {
                         throw new RuntimeException(e);

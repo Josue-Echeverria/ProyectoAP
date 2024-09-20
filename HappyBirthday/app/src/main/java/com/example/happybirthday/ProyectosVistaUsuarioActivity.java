@@ -18,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +65,8 @@ public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
 
                         List<Proyecto> proyectoList = new ArrayList<>();
                         for (com.google.gson.JsonObject jsonObject : jsonObjectList) {
-                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString()));
+                            System.out.println(jsonObject);
+                            proyectoList.add(new Proyecto(jsonObject.get("name").getAsString(), jsonObject.get("description").getAsString(), jsonObject.get("endDate").getAsString(),  jsonObject.get("gathered").getAsString(),jsonObject.get("logo").getAsString()));
 
                             System.out.println(jsonObject);
                         }
@@ -75,7 +77,9 @@ public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
                                 TextView title = holder.itemView.findViewById(R.id.project_title);
                                 TextView description = holder.itemView.findViewById(R.id.project_description);
                                 TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
-
+                                ImageView imagen = holder.itemView.findViewById(R.id.project_image1);
+                                System.out.println(proyecto.getImg());
+                                Picasso.get().load(proyecto.getImg()).into(imagen);
                                 title.setText(proyecto.getTitle());
                                 description.setText(proyecto.getDescription());
                                 deadline.setText(proyecto.getFechaLimite());
@@ -136,7 +140,9 @@ public class ProyectosVistaUsuarioActivity  extends AppCompatActivity {
                             TextView title = holder.itemView.findViewById(R.id.project_title);
                             TextView description = holder.itemView.findViewById(R.id.project_description);
                             TextView deadline = holder.itemView.findViewById(R.id.project_deadline);
+                            ImageView imagen = holder.itemView.findViewById(R.id.project_image1);
 
+                            Picasso.get().load(proyecto.getImg()).into(imagen);
                             title.setText(proyecto.getTitle());
                             description.setText(proyecto.getDescription());
                             deadline.setText(proyecto.getFechaLimite());

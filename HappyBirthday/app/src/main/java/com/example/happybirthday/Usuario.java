@@ -9,11 +9,13 @@ public class Usuario {
     private String nombre;
     private String telefono;
     private String correo;
+    private int activo;
 
-    public Usuario(String nombre, String telefono, String correo) {
+    public Usuario(String nombre, String telefono, String correo, int activo) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
+        this.activo = activo;
     }
 
     public String getnombre() {
@@ -32,6 +34,10 @@ public class Usuario {
         return  "{name:"+this.nombre+", correo:"+this.correo+", telefono:"+this.telefono+"}";
     }
 
+    public int getActivo() {
+        return activo;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -42,4 +48,6 @@ public class Usuario {
     public String string() {
         return null;
     }
+
+
 }
